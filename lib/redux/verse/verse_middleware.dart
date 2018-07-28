@@ -76,9 +76,6 @@ Middleware<AppState> _getCurrentVerses(VerseLocal verseLocal) {
     //if totalPage != null, use totalPage, else get total Page and dispatch // jus like with the get verse local and then
     //if categoryID is not set, getAll --- if categoryID is set, dispatch both, else dispatch currentFavSuccesful too.
 
-    int perPage = 50;
-    int offset = (action.currentPage - 1) * perPage;
-
     if (action is GetCurrentVersesAction) {
       // if (action.type == VerseDisplayType.category) {
       //   for (int i = 53; i < 550; i++) {
@@ -94,10 +91,21 @@ Middleware<AppState> _getCurrentVerses(VerseLocal verseLocal) {
       //     print(i);
       //   }
       // }
-      if (action.currentPage == 1 || action.currentPage == null) {
+      if(action.isFirst){
+        if (action.type == VerseDisplayType.favorite) {
+          next(RestoreFavCount());
+        } else {
+          next(RestoreVerseCount());
+        }
+      }
+       int perPage = 10;
+       int currentPage = verseCountSelector(store.state, action.type);
+       int offset = (currentPage - 1) * perPage;
+
+      if (currentPage == 1) {
         if (action.type == VerseDisplayType.category) {
           next(
-              ClearCurrentVersesDetailsAction()); //get general currentLoading to true
+              ClearCurrentVersesDetailsAction()); //TODO: get general currentLoading to true
         } else {
           next(ClearCurrentFavoriteDetailsAction());
         }

@@ -6,9 +6,9 @@ import 'package:flutter_emergency_app_one/core/verse/verse_view_page.dart';
 import 'package:flutter_emergency_app_one/redux/app/app_state.dart';
 
 class VerseDisplayPage extends StatefulWidget {
-  final int verseCategoryID;
+  final int verseCategoryId;
   final VerseDisplayType type;
-  VerseDisplayPage({Key key, this.verseCategoryID, this.type})
+  VerseDisplayPage({Key key, this.verseCategoryId, this.type})
       : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class _VerseDisplayPageState extends State<VerseDisplayPage> {
     return StoreConnector<AppState, VerseViewModel>(
       // TODO: Implement == and hashcode and set distinct to true;
       converter: (store) => VerseViewModel.fromStore(store, null,
-          categoryID: widget.verseCategoryID),
+          categoryId: widget.verseCategoryId),
       builder: (_, viewModel) {
         return _getDisplay(
             viewModel); //TODO: Change _getDisplay to a statless widget , a content for this stateless widget above
@@ -71,7 +71,7 @@ class _VerseDisplayPageState extends State<VerseDisplayPage> {
       )
     ];
 
-    return (widget.verseCategoryID != null)
+    return (widget.verseCategoryId != null)
         ? _getCategoryView(actions)
         : _getDisplayAllView(actions);
   }
@@ -92,8 +92,8 @@ class _VerseDisplayPageState extends State<VerseDisplayPage> {
         ),
         body: TabBarView(
           children: <Widget>[
-            VerseListFragment(VerseDisplayType.category),
-            VerseListFragment(VerseDisplayType.favorite),
+            VerseListFragment(VerseDisplayType.category, categoryId: widget.verseCategoryId),
+            VerseListFragment(VerseDisplayType.favorite, categoryId: widget.verseCategoryId),
           ],
         ),
       ),

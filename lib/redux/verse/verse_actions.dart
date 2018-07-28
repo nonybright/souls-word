@@ -33,7 +33,9 @@ class GetCurrentVersesAction {
   final VerseListAction action;
   final int currentPage;
   final VerseDisplayType type;
+  final bool isFirst;
   GetCurrentVersesAction(
+    this.isFirst,
     this.currentPage,
     this.type, {
     this.action,
@@ -47,6 +49,23 @@ class GetCurrentVersesAction {
 // int categoryId;
 //  GetCategoryVerseAndFavAction(this.categoryId);
 //}
+
+class RestoreVerseCount{
+  RestoreVerseCount();
+}
+
+class RestoreFavCount{
+  RestoreFavCount();
+}
+class SetVerseLoadingAction{
+  bool loading;
+  SetVerseLoadingAction(this.loading);
+}
+
+class SetFavLoadingAction{
+  bool loading;
+  SetFavLoadingAction(this.loading);
+}
 
 class ClearCurrentVersesDetailsAction {
   ClearCurrentVersesDetailsAction();

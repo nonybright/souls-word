@@ -8,6 +8,16 @@ List<Verse> verseSelector(AppState state, VerseDisplayType type) {
       ? state.verseState.currentVerses
       : state.verseState.currentFavorite;
 }
+bool verseLoadingSelector(AppState state, VerseDisplayType type) {
+  return (type == VerseDisplayType.category)
+      ? state.verseState.verseLoading
+      : state.verseState.favLoading;
+}
+int verseCountSelector(AppState state, VerseDisplayType type) {
+  return (type == VerseDisplayType.category)
+      ? state.verseState.verseCount
+      : state.verseState.favCount;
+}
 
 Verse currentViewedVerseSelector(AppState state) {
   return state.verseState.currentViewed;

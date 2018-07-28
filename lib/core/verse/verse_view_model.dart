@@ -11,6 +11,7 @@ class VerseViewModel {
   final List<Verse> displayedVerses;
   final Function onLoadMore;
   final Function(Verse) onVerseClicked;
+  final bool loading;
 
   final Function onSortByDateDesc;
   final Function onSortByDateAsc;
@@ -25,6 +26,7 @@ class VerseViewModel {
       {this.latestVerses,
       this.displayedVerses,
       this.onVerseClicked,
+      this.loading,
       this.onSortByDateDesc,
       this.onSortByDateAsc,
       this.onSortByBookAsc,
@@ -35,25 +37,34 @@ class VerseViewModel {
       this.onLoadMore});
 
   static VerseViewModel fromStore(
-      //TODONOW: Remove all links to allVerses .. both on the listframentpage
       Store<AppState> store,
       VerseDisplayType type,
-      {int categoryID}) {
-    int pageCount = 2; // pageCount is two because the first loading takes one
-    //TODO: consider moving pageCount's value to VerseState
+      {int categoryId}) {
+    
+    int cnt = categoryId;
     return VerseViewModel(
       latestVerses: store.state.verseState.latestVerses,
       displayedVerses: (type == VerseDisplayType.category)
           ? store.state.verseState.currentVerses
           : store.state.verseState.currentFavorite,
+      loading: verseLoadingSelector(store.state, type), 
       onLoadMore: () {
         int totalPages = totalPagesSelector(store.state, type);
+       // int pageCount = verseCountSelector(store.state,type);
 
-        if (pageCount < totalPages) {
-          //GetCurrentVersesAction();
+        if(verseCountSelector(store.state,type) < totalPages){
+          if(type == VerseDisplayType.favorite){
+
+               store.dispatch(SetFavLoadingAction(true));
+               store.dispatch(GetCurrentVersesAction(false,verseCountSelector(store.state,type), VerseDisplayType.favorite,
+               action: null, categoryID: categoryId));
+          }else{
+              store.dispatch(SetVerseLoadingAction(true));
+              store.dispatch(GetCurrentVersesAction(false,verseCountSelector(store.state,type), VerseDisplayType.category,
+               action: null, categoryID: categoryId));
+          }
+
         }
-
-        pageCount++;
       },
       onVerseClicked: (verse) {
         store.dispatch(CurrentViewedAction(verse));

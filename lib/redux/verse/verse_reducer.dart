@@ -18,22 +18,49 @@ final verseReducer = combineReducers<VerseState>([
   //TypedReducer<VerseState, GetCurrentVersesAction>(_clearVerses),
   TypedReducer<VerseState, ToggleVerseFavoriteSuccessFulAction>(
       _toggleVerseFav),
-  TypedReducer<VerseState, SetCurrentFavoritePagesAction>(_setVersePageAction),
+  TypedReducer<VerseState, SetCurrentFavoritePagesAction>(_setFavPageAction),
+  TypedReducer<VerseState, SetCurrentVersePagesAction>(_setVersePageAction),
+  TypedReducer<VerseState, SetVerseLoadingAction>(_setVerseLoading),
+  TypedReducer<VerseState, SetFavLoadingAction>(_setFavLoading),
+  TypedReducer<VerseState, RestoreFavCount>(_restoreFavCount),
+  TypedReducer<VerseState, RestoreVerseCount>(_restoreVerseCount),
 ]);
+
+VerseState _restoreFavCount(
+    VerseState state, RestoreFavCount action) {
+  return state.copyWith(favCount: 1);
+}
+VerseState _restoreVerseCount(
+    VerseState state, RestoreVerseCount action) {
+  return state.copyWith(verseCount: 1);
+}
+
+VerseState _setVerseLoading(
+    VerseState state, SetVerseLoadingAction action) {
+  return state.copyWith(verseLoading: action.loading);
+}
+VerseState _setFavLoading(
+    VerseState state, SetFavLoadingAction action) {
+  return state.copyWith(favLoading: action.loading);
+}
 
 VerseState _clearCurrentFavoriteAction(
     VerseState state, ClearCurrentFavoriteDetailsAction action) {
-  return state.copyWith(currentFavorite: [], currentFavoritePages: null);
+  return state.copyWith(currentFavorite: [], currentFavoritePages: null, favLoading: false, verseCount: 1);
 }
 
 VerseState _clearCurrentVerseAction(
     VerseState state, ClearCurrentVersesDetailsAction action) {
-  return state.copyWith(currentVerses: [], currentVersePages: null);
+  return state.copyWith(currentVerses: [], currentVersePages: null, verseLoading: false, verseCount: 1);
 }
 
 VerseState _setVersePageAction(
-    VerseState state, SetCurrentFavoritePagesAction action) {
+    VerseState state, SetCurrentVersePagesAction action) {
   return state.copyWith(currentVersePages: action.totalPages);
+}
+VerseState _setFavPageAction(
+    VerseState state, SetCurrentFavoritePagesAction action) {
+  return state.copyWith(currentFavoritePages: action.totalPages);
 }
 
 // VerseState _clearCurrentFavAction(
@@ -55,14 +82,14 @@ VerseState _getVerseCategory(
 VerseState _getCurrentVerses(
     VerseState state, CurrentVersesSuccessfulAction action) {
   return state.copyWith(
-      currentVerses: []..addAll(state.currentVerses)..addAll(action.verses));
+      currentVerses: []..addAll(state.currentVerses)..addAll(action.verses), verseLoading: false, verseCount: state.verseCount + 1, );
 }
 
 VerseState _getFavVerses(VerseState state, CurrentFavSuccessfulAction action) {
   return state.copyWith(
       currentFavorite: []
         ..addAll(state.currentFavorite)
-        ..addAll(action.favVerses));
+        ..addAll(action.favVerses), favLoading: false, favCount: state.favCount + 1);
 }
 
 VerseState _getCurrentViewedVerse(

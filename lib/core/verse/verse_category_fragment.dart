@@ -10,6 +10,7 @@ import 'package:flutter_emergency_app_one/redux/app/appbaraction/app_bar_action_
 import 'package:flutter_emergency_app_one/redux/verse/verse_actions.dart';
 import 'package:flutter_emergency_app_one/widgets/badge.dart';
 import 'package:flutter_emergency_app_one/widgets/responsive_builder.dart';
+import 'package:flutter_emergency_app_one/redux/verse/verse_selectors.dart';
 
 class VerseCategoryFragment extends StatefulWidget {
   VerseCategoryFragment({Key key}) : super(key: key);
@@ -26,8 +27,8 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
         icon: Icon(Icons.list),
         onPressed: () {
           //dispatch get All;
-          store.dispatch(new GetCurrentVersesAction(
-              1, VerseDisplayType.category,
+          store.dispatch(new GetCurrentVersesAction(true,
+              verseCountSelector(store.state,VerseDisplayType.category), VerseDisplayType.category,
               action: null));
           Navigator.push(
             context,
@@ -42,8 +43,8 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
         icon: Icon(Icons.favorite),
         onPressed: () {
           //dispatch get all with favorite as part of action
-          store.dispatch(new GetCurrentVersesAction(
-              1, VerseDisplayType.favorite,
+          store.dispatch(new GetCurrentVersesAction(true,
+              verseCountSelector(store.state,VerseDisplayType.favorite), VerseDisplayType.favorite,
               action: null));
           Navigator.push(
             context,
@@ -136,7 +137,7 @@ class VerseCategoryContent extends StatelessWidget {
           context,
           new MaterialPageRoute(
               builder: (context) => new VerseDisplayPage(
-                    verseCategoryID: verseCategory.id,
+                    verseCategoryId: verseCategory.id,
                   )),
         );
       },
@@ -173,7 +174,7 @@ class VerseCategoryContent extends StatelessWidget {
           context,
           new MaterialPageRoute(
               builder: (context) => new VerseDisplayPage(
-                    verseCategoryID: verseCategory.id,
+                    verseCategoryId: verseCategory.id,
                   )),
         );
       },

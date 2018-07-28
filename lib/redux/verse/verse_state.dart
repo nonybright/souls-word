@@ -8,6 +8,10 @@ class VerseState {
   List<VerseCategory> verseCategories;
   List<Verse> currentVerses;
   List<Verse> currentFavorite;
+  bool verseLoading;
+  bool favLoading;
+  int verseCount;
+  int favCount;
   int currentVersePages;
   int currentFavoritePages;
   Verse currentViewed;
@@ -18,6 +22,10 @@ class VerseState {
       this.verseCategories,
       this.currentVerses,
       this.currentFavorite,
+      this.verseLoading,
+      this.favLoading,
+      this.verseCount,
+      this.favCount,
       this.currentVersePages,
       this.currentFavoritePages,
       this.currentViewed});
@@ -29,6 +37,10 @@ class VerseState {
         verseCategories: <VerseCategory>[],
         currentVerses: <Verse>[],
         currentFavorite: <Verse>[],
+        verseLoading: false,
+        favLoading: false,
+        verseCount: 1, //TODONOW: check if you will set this to two or remove its value from get current
+        favCount: 1,
         currentVersePages: null,
         currentFavoritePages: null,
         currentViewed: null);
@@ -40,6 +52,10 @@ class VerseState {
     List<VerseCategory> verseCategories,
     List<Verse> currentVerses,
     List<Verse> currentFavorite,
+    bool verseLoading,
+    bool favLoading,
+    int verseCount,
+    int favCount,
     int currentVersePages,
     int currentFavoritePages,
     Verse currentViewed,
@@ -50,6 +66,10 @@ class VerseState {
         verseCategories: verseCategories ?? this.verseCategories,
         currentVerses: currentVerses ?? this.currentVerses,
         currentFavorite: currentFavorite ?? this.currentFavorite,
+        verseLoading: verseLoading ?? this.verseLoading,
+        favLoading: favLoading ?? this.favLoading,
+        verseCount: verseCount ?? this.verseCount,
+        favCount:  favCount ?? this.favCount,
         currentVersePages: currentVersePages ?? this.currentVersePages,
         currentFavoritePages: currentFavoritePages ?? this.currentFavoritePages,
         currentViewed: currentViewed ?? this.currentViewed);
