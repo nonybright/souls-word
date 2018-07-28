@@ -1,0 +1,2 @@
+//TODO: NEXT
+class VerseRepository {}
