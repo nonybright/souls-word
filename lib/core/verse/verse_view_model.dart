@@ -1,3 +1,4 @@
+import 'package:flutter_emergency_app_one/models/loading_status.dart';
 import 'package:redux/redux.dart';
 //import 'package:flutter_emergency_app_one/core/verse/verse_list_fragment.dart';
 import 'package:flutter_emergency_app_one/core/verse/verse_view_page.dart';
@@ -11,7 +12,7 @@ class VerseViewModel {
   final List<Verse> displayedVerses;
   final Function onLoadMore;
   final Function(Verse) onVerseClicked;
-  final bool loading;
+  final LoadingStatus loadingStatus;
 
   final Function onSortByDateDesc;
   final Function onSortByDateAsc;
@@ -26,7 +27,7 @@ class VerseViewModel {
       {this.latestVerses,
       this.displayedVerses,
       this.onVerseClicked,
-      this.loading,
+      this.loadingStatus,
       this.onSortByDateDesc,
       this.onSortByDateAsc,
       this.onSortByBookAsc,
@@ -41,26 +42,23 @@ class VerseViewModel {
       VerseDisplayType type,
       {int categoryId}) {
     
-    int cnt = categoryId;
     return VerseViewModel(
       latestVerses: store.state.verseState.latestVerses,
-      displayedVerses: (type == VerseDisplayType.category)
+      displayedVerses: (type == VerseDisplayType.category) 
+      // use else if type == fav for the next line too to prevent it from changing when null is passed in the other side
           ? store.state.verseState.currentVerses
           : store.state.verseState.currentFavorite,
-      loading: verseLoadingSelector(store.state, type), 
+      loadingStatus: verseLoadingSelector(store.state, type), 
       onLoadMore: () {
         int totalPages = totalPagesSelector(store.state, type);
        // int pageCount = verseCountSelector(store.state,type);
 
         if(verseCountSelector(store.state,type) < totalPages){
           if(type == VerseDisplayType.favorite){
-
-               store.dispatch(SetFavLoadingAction(true));
-               store.dispatch(GetCurrentVersesAction(false,verseCountSelector(store.state,type), VerseDisplayType.favorite,
+               store.dispatch(GetMoreCurrentFavAction(verseCountSelector(store.state,type),
                action: null, categoryID: categoryId));
           }else{
-              store.dispatch(SetVerseLoadingAction(true));
-              store.dispatch(GetCurrentVersesAction(false,verseCountSelector(store.state,type), VerseDisplayType.category,
+              store.dispatch(GetMoreCurrentVersesAction(verseCountSelector(store.state,type),
                action: null, categoryID: categoryId));
           }
 

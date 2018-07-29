@@ -1,4 +1,5 @@
 import 'package:flutter_emergency_app_one/core/verse/verse_view_page.dart';
+import 'package:flutter_emergency_app_one/models/loading_status.dart';
 import 'package:flutter_emergency_app_one/models/verse.dart';
 import 'package:flutter_emergency_app_one/redux/app/app_state.dart';
 import 'package:flutter_emergency_app_one/redux/verse/verse_state.dart';
@@ -8,10 +9,10 @@ List<Verse> verseSelector(AppState state, VerseDisplayType type) {
       ? state.verseState.currentVerses
       : state.verseState.currentFavorite;
 }
-bool verseLoadingSelector(AppState state, VerseDisplayType type) {
+LoadingStatus verseLoadingSelector(AppState state, VerseDisplayType type) {
   return (type == VerseDisplayType.category)
-      ? state.verseState.verseLoading
-      : state.verseState.favLoading;
+      ? state.verseState.verseLoadingStatus
+      : state.verseState.favLoadingStatus;
 }
 int verseCountSelector(AppState state, VerseDisplayType type) {
   return (type == VerseDisplayType.category)

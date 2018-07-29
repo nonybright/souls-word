@@ -3,13 +3,12 @@ import 'package:flutter_emergency_app_one/models/verse.dart';
 import 'package:flutter_emergency_app_one/models/verse_category.dart';
 
 class VerseState {
-  LoadingStatus loadingStatus;
+  LoadingStatus verseLoadingStatus;
+  LoadingStatus favLoadingStatus;
   List<Verse> latestVerses;
   List<VerseCategory> verseCategories;
   List<Verse> currentVerses;
   List<Verse> currentFavorite;
-  bool verseLoading;
-  bool favLoading;
   int verseCount;
   int favCount;
   int currentVersePages;
@@ -17,29 +16,29 @@ class VerseState {
   Verse currentViewed;
 
   VerseState(
-      {this.latestVerses,
-      this.loadingStatus,
+     
+      { 
+      this.verseLoadingStatus,
+      this.favLoadingStatus,
+      this.latestVerses,
       this.verseCategories,
       this.currentVerses,
       this.currentFavorite,
-      this.verseLoading,
-      this.favLoading,
       this.verseCount,
       this.favCount,
       this.currentVersePages,
       this.currentFavoritePages,
-      this.currentViewed});
+      this.currentViewed,});
 
   factory VerseState.initial() {
     return VerseState(
-        loadingStatus: LoadingStatus.loading,
+        verseLoadingStatus: LoadingStatus.loading,
+        favLoadingStatus: LoadingStatus.loading,
         latestVerses: <Verse>[],
         verseCategories: <VerseCategory>[],
         currentVerses: <Verse>[],
         currentFavorite: <Verse>[],
-        verseLoading: false,
-        favLoading: false,
-        verseCount: 1, //TODONOW: check if you will set this to two or remove its value from get current
+        verseCount: 1,
         favCount: 1,
         currentVersePages: null,
         currentFavoritePages: null,
@@ -47,13 +46,12 @@ class VerseState {
   }
 
   VerseState copyWith({
-    LoadingStatus loadingStatus,
+    LoadingStatus verseLoadingStatus,
+    LoadingStatus favLoadingStatus,
     List<Verse> latestVerses,
     List<VerseCategory> verseCategories,
     List<Verse> currentVerses,
     List<Verse> currentFavorite,
-    bool verseLoading,
-    bool favLoading,
     int verseCount,
     int favCount,
     int currentVersePages,
@@ -61,13 +59,12 @@ class VerseState {
     Verse currentViewed,
   }) {
     return VerseState(
-        loadingStatus: loadingStatus ?? this.loadingStatus,
+        verseLoadingStatus: verseLoadingStatus ?? this.verseLoadingStatus,
+        favLoadingStatus: favLoadingStatus ?? this.favLoadingStatus,
         latestVerses: latestVerses ?? this.latestVerses,
         verseCategories: verseCategories ?? this.verseCategories,
         currentVerses: currentVerses ?? this.currentVerses,
         currentFavorite: currentFavorite ?? this.currentFavorite,
-        verseLoading: verseLoading ?? this.verseLoading,
-        favLoading: favLoading ?? this.favLoading,
         verseCount: verseCount ?? this.verseCount,
         favCount:  favCount ?? this.favCount,
         currentVersePages: currentVersePages ?? this.currentVersePages,

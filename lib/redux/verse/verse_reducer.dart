@@ -10,48 +10,36 @@ final verseReducer = combineReducers<VerseState>([
   TypedReducer<VerseState, CurrentVersesSuccessfulAction>(_getCurrentVerses),
   TypedReducer<VerseState, CurrentFavSuccessfulAction>(_getFavVerses),
   TypedReducer<VerseState, CurrentViewedAction>(_getCurrentViewedVerse),
-  //TypedReducer<VerseState, ClearCurrentFavAction>(_clearCurrentFavAction),
-  TypedReducer<VerseState, ClearCurrentVersesDetailsAction>(
-      _clearCurrentVerseAction),
-  TypedReducer<VerseState, ClearCurrentFavoriteDetailsAction>(
-      _clearCurrentFavoriteAction),
-  //TypedReducer<VerseState, GetCurrentVersesAction>(_clearVerses),
+  // TypedReducer<VerseState, ClearCurrentVersesDetailsAction>(
+  //     _clearCurrentVerseAction),
+  // TypedReducer<VerseState, ClearCurrentFavoriteDetailsAction>(
+  //     _clearCurrentFavoriteAction),
+  TypedReducer<VerseState, GetCurrentVersesAction>(_initVerses),
+  TypedReducer<VerseState, GetCurrentFavAction>(_initFav),
+  TypedReducer<VerseState, GetMoreCurrentVersesAction>(_initMoreVerses),
+  TypedReducer<VerseState, GetMoreCurrentFavAction>(_initMoreFav),
   TypedReducer<VerseState, ToggleVerseFavoriteSuccessFulAction>(
       _toggleVerseFav),
   TypedReducer<VerseState, SetCurrentFavoritePagesAction>(_setFavPageAction),
   TypedReducer<VerseState, SetCurrentVersePagesAction>(_setVersePageAction),
-  TypedReducer<VerseState, SetVerseLoadingAction>(_setVerseLoading),
-  TypedReducer<VerseState, SetFavLoadingAction>(_setFavLoading),
-  TypedReducer<VerseState, RestoreFavCount>(_restoreFavCount),
-  TypedReducer<VerseState, RestoreVerseCount>(_restoreVerseCount),
 ]);
 
-VerseState _restoreFavCount(
-    VerseState state, RestoreFavCount action) {
-  return state.copyWith(favCount: 1);
+VerseState _initMoreVerses(
+    VerseState state, GetMoreCurrentVersesAction action) {
+   return state.copyWith(verseLoadingStatus: LoadingStatus.loadingMore);
 }
-VerseState _restoreVerseCount(
-    VerseState state, RestoreVerseCount action) {
-  return state.copyWith(verseCount: 1);
+VerseState _initMoreFav(
+    VerseState state, GetMoreCurrentFavAction action) {
+//count is not increased here because an error might occur during loading and reloading current index might be needed.
+return state.copyWith(favLoadingStatus: LoadingStatus.loadingMore); 
 }
-
-VerseState _setVerseLoading(
-    VerseState state, SetVerseLoadingAction action) {
-  return state.copyWith(verseLoading: action.loading);
+VerseState _initVerses(
+    VerseState state, GetCurrentVersesAction action) {
+   return state.copyWith(currentVerses:[], currentVersePages:  null, verseLoadingStatus: LoadingStatus.loading, verseCount: 1,);
 }
-VerseState _setFavLoading(
-    VerseState state, SetFavLoadingAction action) {
-  return state.copyWith(favLoading: action.loading);
-}
-
-VerseState _clearCurrentFavoriteAction(
-    VerseState state, ClearCurrentFavoriteDetailsAction action) {
-  return state.copyWith(currentFavorite: [], currentFavoritePages: null, favLoading: false, verseCount: 1);
-}
-
-VerseState _clearCurrentVerseAction(
-    VerseState state, ClearCurrentVersesDetailsAction action) {
-  return state.copyWith(currentVerses: [], currentVersePages: null, verseLoading: false, verseCount: 1);
+VerseState _initFav(
+    VerseState state, GetCurrentFavAction action) {
+return state.copyWith(currentFavorite: [],  currentFavoritePages: null, favLoadingStatus: LoadingStatus.loading, favCount: 1,);
 }
 
 VerseState _setVersePageAction(
@@ -63,15 +51,9 @@ VerseState _setFavPageAction(
   return state.copyWith(currentFavoritePages: action.totalPages);
 }
 
-// VerseState _clearCurrentFavAction(
-//     VerseState state, ClearCurrentFavAction action) {
-//   return state.copyWith(currentFavorite: []);
-// }
 
 VerseState _updateVerses(VerseState state, LatestVerseSuccessfulAction action) {
-  return state.copyWith(
-      loadingStatus: LoadingStatus.success,
-      latestVerses: []..addAll(state.latestVerses)..addAll(action.verses));
+  return state.copyWith(latestVerses: []..addAll(state.latestVerses)..addAll(action.verses));
 }
 
 VerseState _getVerseCategory(
@@ -82,15 +64,27 @@ VerseState _getVerseCategory(
 VerseState _getCurrentVerses(
     VerseState state, CurrentVersesSuccessfulAction action) {
   return state.copyWith(
-      currentVerses: []..addAll(state.currentVerses)..addAll(action.verses), verseLoading: false, verseCount: state.verseCount + 1, );
+      currentVerses: []..addAll(state.currentVerses)..addAll(action.verses), verseLoadingStatus: LoadingStatus.success, verseCount: state.verseCount + 1, );
 }
 
 VerseState _getFavVerses(VerseState state, CurrentFavSuccessfulAction action) {
   return state.copyWith(
       currentFavorite: []
         ..addAll(state.currentFavorite)
-        ..addAll(action.favVerses), favLoading: false, favCount: state.favCount + 1);
+        ..addAll(action.favVerses), favLoadingStatus: LoadingStatus.success, favCount: state.favCount + 1);
 }
+// VerseState _getCurrentVerses(
+//     VerseState state, CurrentVersesSuccessfulAction action) {
+//   return state.copyWith(
+//       currentVerses: []..addAll(state.currentVerses)..addAll(action.verses), verseLoadingStatus: LoadingStatus.success, verseCount: state.verseCount + 1, );
+// }
+
+// VerseState _getFavVerses(VerseState state, CurrentFavSuccessfulAction action) {
+//   return state.copyWith(
+//       currentFavorite: []
+//         ..addAll(state.currentFavorite)
+//         ..addAll(action.favVerses), favLoadingStatus: LoadingStatus.success, favCount: state.favCount + 1);
+// }
 
 VerseState _getCurrentViewedVerse(
     VerseState state, CurrentViewedAction action) {
@@ -100,7 +94,6 @@ VerseState _getCurrentViewedVerse(
 VerseState _toggleVerseFav(
     VerseState state, ToggleVerseFavoriteSuccessFulAction action) {
   return state.copyWith(
-    loadingStatus: LoadingStatus.success,
     latestVerses: _replaceVerseIfFound(state.latestVerses, action.toggledVerse),
     currentVerses:
         _replaceVerseIfFound(state.currentVerses, action.toggledVerse),

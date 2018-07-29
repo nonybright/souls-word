@@ -27,8 +27,8 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
         icon: Icon(Icons.list),
         onPressed: () {
           //dispatch get All;
-          store.dispatch(new GetCurrentVersesAction(true,
-              verseCountSelector(store.state,VerseDisplayType.category), VerseDisplayType.category,
+          store.dispatch(new GetCurrentVersesAction(
+              verseCountSelector(store.state,VerseDisplayType.category),
               action: null));
           Navigator.push(
             context,
@@ -43,8 +43,8 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
         icon: Icon(Icons.favorite),
         onPressed: () {
           //dispatch get all with favorite as part of action
-          store.dispatch(new GetCurrentVersesAction(true,
-              verseCountSelector(store.state,VerseDisplayType.favorite), VerseDisplayType.favorite,
+          store.dispatch(new GetCurrentFavAction(
+              verseCountSelector(store.state,VerseDisplayType.favorite),
               action: null));
           Navigator.push(
             context,

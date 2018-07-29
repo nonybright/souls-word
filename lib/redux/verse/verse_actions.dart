@@ -28,20 +28,60 @@ class VerseCategorySuccessfulAction {
 //   GetCurrentVersesAction(this.categoryID, this.action);
 // }
 
+//TODO: Refactor all these to extend
 class GetCurrentVersesAction {
   final int categoryID;
   final VerseListAction action;
   final int currentPage;
-  final VerseDisplayType type;
-  final bool isFirst;
+  final VerseDisplayType type = VerseDisplayType.category;
   GetCurrentVersesAction(
-    this.isFirst,
     this.currentPage,
-    this.type, {
+   {
     this.action,
     this.categoryID,
   });
 }
+
+class GetCurrentFavAction {
+  final int categoryID;
+  final VerseListAction action;
+  final int currentPage;
+  final VerseDisplayType type = VerseDisplayType.favorite;
+  GetCurrentFavAction(
+    this.currentPage,
+    {
+    this.action,
+    this.categoryID,
+  });
+}
+
+
+class GetMoreCurrentVersesAction {
+  final int categoryID;
+  final VerseListAction action;
+  final int currentPage;
+  final VerseDisplayType type = VerseDisplayType.category;
+  GetMoreCurrentVersesAction(
+    this.currentPage,
+   {
+    this.action,
+    this.categoryID,
+  });
+}
+
+class GetMoreCurrentFavAction {
+  final int categoryID;
+  final VerseListAction action;
+  final int currentPage;
+  final VerseDisplayType type = VerseDisplayType.favorite;
+  GetMoreCurrentFavAction(
+    this.currentPage,
+    {
+    this.action,
+    this.categoryID,
+  });
+}
+
 
 //class GetFavoriteVersesAction {}
 
@@ -49,23 +89,6 @@ class GetCurrentVersesAction {
 // int categoryId;
 //  GetCategoryVerseAndFavAction(this.categoryId);
 //}
-
-class RestoreVerseCount{
-  RestoreVerseCount();
-}
-
-class RestoreFavCount{
-  RestoreFavCount();
-}
-class SetVerseLoadingAction{
-  bool loading;
-  SetVerseLoadingAction(this.loading);
-}
-
-class SetFavLoadingAction{
-  bool loading;
-  SetFavLoadingAction(this.loading);
-}
 
 class ClearCurrentVersesDetailsAction {
   ClearCurrentVersesDetailsAction();
@@ -84,17 +107,6 @@ class SetCurrentFavoritePagesAction {
   int totalPages;
   SetCurrentFavoritePagesAction(this.totalPages);
 }
-
-// class ClearCurrentFavAction {
-//   ClearCurrentFavAction();
-// }
-
-// class GetAllVersesAction {
-//   final VerseDisplayType type;
-//   final VerseListAction action;
-//   final int currentPage;
-//   GetAllVersesAction(this.type, this.action, this.currentPage);
-// }
 
 class CurrentVersesSuccessfulAction {
   final List<Verse> verses;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_emergency_app_one/models/loading_status.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_emergency_app_one/core/verse/verse_detail_card.dart';
 import 'package:flutter_emergency_app_one/core/verse/verse_view_model.dart';
@@ -36,7 +37,7 @@ class _VerseListFragmentState extends State<VerseListFragment> {
             onShareImageClicked: viewModel.onShareImageClicked,
             onFavToggleClicked: viewModel.onFavToggleClicked,
             onLoadMore: viewModel.onLoadMore,
-            loading: viewModel.loading,
+            loadingStatus: viewModel.loadingStatus,
           ),
     );
   }
@@ -51,7 +52,7 @@ class VerseListContent extends StatelessWidget {
       onShareImageClicked; //TODO: these shouldnt be here just to be passed to verse detail card, ceate a viewmodel for the detailcard
   final Function(Verse) onFavToggleClicked;
   final Function() onLoadMore;
-  final bool loading;
+  final LoadingStatus loadingStatus;
 
   VerseListContent(this.displayType, this.currentVerses,
       {this.onVerseClicked,
@@ -59,7 +60,7 @@ class VerseListContent extends StatelessWidget {
       this.onShareImageClicked,
       this.onFavToggleClicked,
       this.onLoadMore,
-      this.loading});
+      this.loadingStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +73,7 @@ class VerseListContent extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         print(index);
-        //TODONOW: make infinite scroll
-         if (index >= currentVerses.length - 2 && !loading) {
-          // print('go to load more'+displayType.toString());
+         if (index >= currentVerses.length - 2 && loadingStatus != LoadingStatus.loadingMore) {
           onLoadMore();
         } 
         return VerseDetailCard(
