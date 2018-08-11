@@ -8,7 +8,7 @@ import 'package:flutter_emergency_app_one/models/verse.dart';
 import 'package:flutter_emergency_app_one/redux/app/app_state.dart';
 import 'package:flutter_emergency_app_one/utils/device_detail.dart';
 
-enum VerseListAction {
+enum VerseSortType {
   sortByDateDesc,
   sortByDateAsc,
   sortByBookDesc,
@@ -25,6 +25,8 @@ class VerseListFragment extends StatefulWidget {
 }
 
 class _VerseListFragmentState extends State<VerseListFragment> {
+
+  
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, VerseViewModel>(

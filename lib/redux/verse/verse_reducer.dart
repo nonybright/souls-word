@@ -35,11 +35,11 @@ return state.copyWith(favLoadingStatus: LoadingStatus.loadingMore);
 }
 VerseState _initVerses(
     VerseState state, GetCurrentVersesAction action) {
-   return state.copyWith(currentVerses:[], currentVersePages:  null, verseLoadingStatus: LoadingStatus.loading, verseCount: 1,);
+   return state.copyWith(currentVerses:[], currentVersePages:  null, verseLoadingStatus: LoadingStatus.loading, verseCount: 1, sortType: action.sortType);
 }
 VerseState _initFav(
     VerseState state, GetCurrentFavAction action) {
-return state.copyWith(currentFavorite: [],  currentFavoritePages: null, favLoadingStatus: LoadingStatus.loading, favCount: 1,);
+return state.copyWith(currentFavorite: [],  currentFavoritePages: null, favLoadingStatus: LoadingStatus.loading, favCount: 1, sortType: action.sortType);
 }
 
 VerseState _setVersePageAction(

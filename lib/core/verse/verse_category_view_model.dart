@@ -26,9 +26,9 @@ class VerseCategoryViewModel {
         onCategoryClicked: (categoryId) {
           //store.dispatch(GetCategoryVerseAndFavAction(categoryId));
           store.dispatch(GetCurrentFavAction(verseCountSelector(store.state,VerseDisplayType.favorite),
-              action: null, categoryID: categoryId));
+               null, categoryID: categoryId));
           store.dispatch(GetCurrentVersesAction(verseCountSelector(store.state,VerseDisplayType.category),
-              action: null, categoryID: categoryId));
+              null, categoryID: categoryId));
         },
         verseCount: (categoryID) {
           return verseInCategory(store.state.verseState, categoryID).length;

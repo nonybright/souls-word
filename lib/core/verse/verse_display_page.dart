@@ -32,37 +32,37 @@ class _VerseDisplayPageState extends State<VerseDisplayPage> {
   _getDisplay(VerseViewModel viewModel) {
     List<Widget> actions = [
       //random
-      new PopupMenuButton<VerseListAction>(
-        itemBuilder: (BuildContext context) => <PopupMenuItem<VerseListAction>>[
-              const PopupMenuItem<VerseListAction>(
-                value: VerseListAction.sortByDateAsc,
+      new PopupMenuButton<VerseSortType>(
+        itemBuilder: (BuildContext context) => <PopupMenuItem<VerseSortType>>[
+              const PopupMenuItem<VerseSortType>(
+                value: VerseSortType.sortByDateAsc,
                 child: Text('Sort By Date Desc'),
               ),
-              const PopupMenuItem<VerseListAction>(
-                value: VerseListAction.sortByDateAsc,
+              const PopupMenuItem<VerseSortType>(
+                value: VerseSortType.sortByDateAsc,
                 child: Text('Sort By Date Asc'),
               ),
-              const PopupMenuItem<VerseListAction>(
-                value: VerseListAction.sortByBookAsc,
+              const PopupMenuItem<VerseSortType>(
+                value: VerseSortType.sortByBookAsc,
                 child: Text('Sort By Book Desc'),
               ),
-              const PopupMenuItem<VerseListAction>(
-                value: VerseListAction.sortByBookDesc,
+              const PopupMenuItem<VerseSortType>(
+                value: VerseSortType.sortByBookDesc,
                 child: Text('Sort By Book Asc'),
               ),
             ],
-        onSelected: (VerseListAction action) {
-          switch (action) {
-            case VerseListAction.sortByDateDesc:
+        onSelected: (VerseSortType sortType) {
+          switch (sortType) {
+            case VerseSortType.sortByDateDesc:
               viewModel.onSortByDateDesc();
               break;
-            case VerseListAction.sortByDateAsc:
+            case VerseSortType.sortByDateAsc:
               viewModel.onSortByDateAsc();
               break;
-            case VerseListAction.sortByBookDesc:
+            case VerseSortType.sortByBookDesc:
               viewModel.onSortByBookDesc();
               break;
-            case VerseListAction.sortByBookAsc:
+            case VerseSortType.sortByBookAsc:
               viewModel.onSortByBookAsc();
               break;
           }

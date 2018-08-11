@@ -1,3 +1,4 @@
+import 'package:flutter_emergency_app_one/core/verse/verse_list_fragment.dart';
 import 'package:flutter_emergency_app_one/models/loading_status.dart';
 import 'package:flutter_emergency_app_one/models/verse.dart';
 import 'package:flutter_emergency_app_one/models/verse_category.dart';
@@ -14,6 +15,7 @@ class VerseState {
   int currentVersePages;
   int currentFavoritePages;
   Verse currentViewed;
+  VerseSortType sortType;
 
   VerseState(
      
@@ -28,7 +30,8 @@ class VerseState {
       this.favCount,
       this.currentVersePages,
       this.currentFavoritePages,
-      this.currentViewed,});
+      this.currentViewed,
+      this.sortType});
 
   factory VerseState.initial() {
     return VerseState(
@@ -42,7 +45,8 @@ class VerseState {
         favCount: 1,
         currentVersePages: null,
         currentFavoritePages: null,
-        currentViewed: null);
+        currentViewed: null,
+        sortType: VerseSortType.sortByBookDesc);
   }
 
   VerseState copyWith({
@@ -57,6 +61,7 @@ class VerseState {
     int currentVersePages,
     int currentFavoritePages,
     Verse currentViewed,
+    VerseSortType sortType,
   }) {
     return VerseState(
         verseLoadingStatus: verseLoadingStatus ?? this.verseLoadingStatus,
@@ -69,6 +74,7 @@ class VerseState {
         favCount:  favCount ?? this.favCount,
         currentVersePages: currentVersePages ?? this.currentVersePages,
         currentFavoritePages: currentFavoritePages ?? this.currentFavoritePages,
-        currentViewed: currentViewed ?? this.currentViewed);
+        currentViewed: currentViewed ?? this.currentViewed,
+        sortType: sortType ?? this.sortType,);
   }
 }

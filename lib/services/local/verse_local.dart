@@ -67,12 +67,12 @@ class VerseLocal {
     int categoryId,
     int limit,
     int offset,
-    VerseListAction action,
+    VerseSortType sortType,
     bool random,
   }) async {
    
-    if (action == null) {
-      action = VerseListAction.sortByDateDesc;
+    if (sortType == null) {
+      sortType = VerseSortType.sortByDateDesc;
     }
 
      String queryString = 'SELECT * FROM $tableVerse ';
@@ -94,48 +94,24 @@ class VerseLocal {
       }
     }
 
-    queryString += _sortOrder(action);
+    queryString += _sortOrder(sortType);
     queryString += (limit != null)? ' LIMIT $limit ':' ';
     queryString += (offset != null)? ' OFFSET $offset ':' ';
 
-    /*String whereString;
-    List<dynamic> whereArgs;
-    if (categoryId != null) {
-      if (type == VerseDisplayType.category) {
-        whereString = '$columnCategoryId == ? ';
-        whereArgs = [categoryId];
-      } else if (type == VerseDisplayType.favorite) {
-        whereString = '$columnCategoryId == ? AND $columnIsFaved = 1 ';
-        whereArgs = [categoryId];
-      } else {
-        throw Error;
-      }
-    } else {
-      //for all
-      if (type == VerseDisplayType.favorite) {
-        whereString = '$columnIsFaved = 1 ';
-        whereArgs = [];
-      }
-    }
-
-    Database database = await dbHelper.db;
-    List<Map> map = await database.query(tableVerse,
-        where: whereString, whereArgs: whereArgs, limit: limit, offset: offset);*/
-    
     Database database = await dbHelper.db;
     List<Map> map = await database.rawQuery(queryString, args);
     return map.map((verse) => Verse.fromMap(verse)).toList();
   }
 
-  _sortOrder(VerseListAction action) {
-    switch (action) {
-      case VerseListAction.sortByBookDesc:
+  _sortOrder(VerseSortType sortType) {
+    switch (sortType) {
+      case VerseSortType.sortByBookDesc:
         return ' ORDER BY quotation DESC ';
-      case VerseListAction.sortByBookAsc:
+      case VerseSortType.sortByBookAsc:
         return ' ORDER BY quotation ASC ';
-      case VerseListAction.sortByDateDesc:
+      case VerseSortType.sortByDateDesc:
         return ' ORDER BY dateAdded DESC ';
-      case VerseListAction.sortByDateAsc:
+      case VerseSortType.sortByDateAsc:
         return ' ORDER BY dateAdded ASC ';
     }
   }

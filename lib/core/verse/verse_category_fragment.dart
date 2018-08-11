@@ -29,7 +29,7 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
           //dispatch get All;
           store.dispatch(new GetCurrentVersesAction(
               verseCountSelector(store.state,VerseDisplayType.category),
-              action: null));
+              null));
           Navigator.push(
             context,
             new MaterialPageRoute(
@@ -45,7 +45,7 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
           //dispatch get all with favorite as part of action
           store.dispatch(new GetCurrentFavAction(
               verseCountSelector(store.state,VerseDisplayType.favorite),
-              action: null));
+              null));
           Navigator.push(
             context,
             new MaterialPageRoute(

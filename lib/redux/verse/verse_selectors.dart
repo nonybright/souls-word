@@ -1,3 +1,4 @@
+import 'package:flutter_emergency_app_one/core/verse/verse_list_fragment.dart';
 import 'package:flutter_emergency_app_one/core/verse/verse_view_page.dart';
 import 'package:flutter_emergency_app_one/models/loading_status.dart';
 import 'package:flutter_emergency_app_one/models/verse.dart';
@@ -22,6 +23,10 @@ int verseCountSelector(AppState state, VerseDisplayType type) {
 
 Verse currentViewedVerseSelector(AppState state) {
   return state.verseState.currentViewed;
+}
+
+VerseSortType sortTypeSelector(AppState state){
+  return state.verseState.sortType;
 }
 
 int totalPagesSelector(AppState state, VerseDisplayType type) {

@@ -31,26 +31,26 @@ class VerseCategorySuccessfulAction {
 //TODO: Refactor all these to extend
 class GetCurrentVersesAction {
   final int categoryID;
-  final VerseListAction action;
+  final VerseSortType sortType;
   final int currentPage;
   final VerseDisplayType type = VerseDisplayType.category;
   GetCurrentVersesAction(
     this.currentPage,
+    this.sortType,
    {
-    this.action,
     this.categoryID,
   });
 }
 
 class GetCurrentFavAction {
   final int categoryID;
-  final VerseListAction action;
+  final VerseSortType sortType;
   final int currentPage;
   final VerseDisplayType type = VerseDisplayType.favorite;
   GetCurrentFavAction(
     this.currentPage,
+    this.sortType,
     {
-    this.action,
     this.categoryID,
   });
 }
@@ -58,37 +58,29 @@ class GetCurrentFavAction {
 
 class GetMoreCurrentVersesAction {
   final int categoryID;
-  final VerseListAction action;
+  final VerseSortType sortType;
   final int currentPage;
   final VerseDisplayType type = VerseDisplayType.category;
   GetMoreCurrentVersesAction(
     this.currentPage,
    {
-    this.action,
+    this.sortType,
     this.categoryID,
   });
 }
 
 class GetMoreCurrentFavAction {
   final int categoryID;
-  final VerseListAction action;
+  final VerseSortType sortType;
   final int currentPage;
   final VerseDisplayType type = VerseDisplayType.favorite;
   GetMoreCurrentFavAction(
     this.currentPage,
     {
-    this.action,
+    this.sortType,
     this.categoryID,
   });
 }
-
-
-//class GetFavoriteVersesAction {}
-
-//class GetCategoryVerseAndFavAction {
-// int categoryId;
-//  GetCategoryVerseAndFavAction(this.categoryId);
-//}
 
 class ClearCurrentVersesDetailsAction {
   ClearCurrentVersesDetailsAction();
