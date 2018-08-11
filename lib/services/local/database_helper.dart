@@ -51,7 +51,7 @@ class DatabaseHelper {
           onCreate: (database, version) => _setDbCreated(),
           onOpen: (database) {
             print('the database is open');
-          });
+       });
 
       return db;
     } else {

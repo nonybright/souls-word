@@ -29,19 +29,20 @@ class VerseDetailCard extends StatelessWidget {
           new PopupMenuButton<VerseDetailAction>(
             itemBuilder: (BuildContext context) =>
                 <PopupMenuItem<VerseDetailAction>>[
-                  const PopupMenuItem<VerseDetailAction>(
+                   PopupMenuItem<VerseDetailAction>(
                     value: VerseDetailAction.share,
                     child: Text('Share'),
+                    
                   ),
-                  const PopupMenuItem<VerseDetailAction>(
+                  PopupMenuItem<VerseDetailAction>(
                     value: VerseDetailAction.shareAsImage,
                     child: Text('Share As Image'),
                   ),
-                  const PopupMenuItem<VerseDetailAction>(
+                  PopupMenuItem<VerseDetailAction>(
                     value: VerseDetailAction.favToggle,
-                    child: Text('Toggle Favorite'),
+                    child: verse.isFaved? Text('Remove Favorite'): Text('Make Favorite'),
                   ),
-                  const PopupMenuItem<VerseDetailAction>(
+                  PopupMenuItem<VerseDetailAction>(
                     value: VerseDetailAction.share,
                     child: Text('Edit'),
                   ),

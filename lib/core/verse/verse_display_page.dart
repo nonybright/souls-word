@@ -58,7 +58,6 @@ class _VerseDisplayPageState extends State<VerseDisplayPage> {
               break;
             case VerseListAction.sortByDateAsc:
               viewModel.onSortByDateAsc();
-
               break;
             case VerseListAction.sortByBookDesc:
               viewModel.onSortByBookDesc();
@@ -100,10 +99,11 @@ class _VerseDisplayPageState extends State<VerseDisplayPage> {
     );
   }
 
-  Widget _getDisplayAllView(action) {
+  Widget _getDisplayAllView(actions) {
     return Scaffold(
       appBar: AppBar(
         title: Text('display'),
+        actions: actions,
       ),
       body: VerseListFragment(widget
           .type),

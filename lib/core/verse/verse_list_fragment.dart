@@ -65,6 +65,9 @@ class VerseListContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //will be gridbuilder
+    if(loadingStatus == LoadingStatus.loading){
+      return new Center(child: CircularProgressIndicator());
+    }
     return  GridView.builder(
       itemCount: currentVerses.length,
       shrinkWrap: true,
@@ -72,7 +75,6 @@ class VerseListContent extends StatelessWidget {
         crossAxisCount: DeviceDetail(context).isPhone() ? 1 : 2,
       ),
       itemBuilder: (context, index) {
-        print(index);
          if (index >= currentVerses.length - 2 && loadingStatus != LoadingStatus.loadingMore) {
           onLoadMore();
         } 

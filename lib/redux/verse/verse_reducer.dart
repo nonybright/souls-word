@@ -57,7 +57,7 @@ VerseState _updateVerses(VerseState state, LatestVerseSuccessfulAction action) {
 }
 
 VerseState _getVerseCategory(
-    VerseState state, VerseCategorySuccessfulAction action) {
+  VerseState state, VerseCategorySuccessfulAction action) {
   return state.copyWith(verseCategories: action.verseCategories);
 }
 
@@ -73,18 +73,6 @@ VerseState _getFavVerses(VerseState state, CurrentFavSuccessfulAction action) {
         ..addAll(state.currentFavorite)
         ..addAll(action.favVerses), favLoadingStatus: LoadingStatus.success, favCount: state.favCount + 1);
 }
-// VerseState _getCurrentVerses(
-//     VerseState state, CurrentVersesSuccessfulAction action) {
-//   return state.copyWith(
-//       currentVerses: []..addAll(state.currentVerses)..addAll(action.verses), verseLoadingStatus: LoadingStatus.success, verseCount: state.verseCount + 1, );
-// }
-
-// VerseState _getFavVerses(VerseState state, CurrentFavSuccessfulAction action) {
-//   return state.copyWith(
-//       currentFavorite: []
-//         ..addAll(state.currentFavorite)
-//         ..addAll(action.favVerses), favLoadingStatus: LoadingStatus.success, favCount: state.favCount + 1);
-// }
 
 VerseState _getCurrentViewedVerse(
     VerseState state, CurrentViewedAction action) {

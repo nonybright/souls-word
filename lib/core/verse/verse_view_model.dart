@@ -1,3 +1,4 @@
+import 'package:flutter_emergency_app_one/core/verse/verse_list_fragment.dart';
 import 'package:flutter_emergency_app_one/models/loading_status.dart';
 import 'package:redux/redux.dart';
 //import 'package:flutter_emergency_app_one/core/verse/verse_list_fragment.dart';
@@ -37,51 +38,47 @@ class VerseViewModel {
       this.onFavToggleClicked,
       this.onLoadMore});
 
-  static VerseViewModel fromStore(
-      Store<AppState> store,
-      VerseDisplayType type,
+  static VerseViewModel fromStore(Store<AppState> store, VerseDisplayType type,
       {int categoryId}) {
-    
     return VerseViewModel(
       latestVerses: store.state.verseState.latestVerses,
-      displayedVerses: (type == VerseDisplayType.category) 
-      // use else if type == fav for the next line too to prevent it from changing when null is passed in the other side
+      displayedVerses: (type == VerseDisplayType.category)
+          // use else if type == fav for the next line too to prevent it from changing when null is passed in the other side
           ? store.state.verseState.currentVerses
           : store.state.verseState.currentFavorite,
-      loadingStatus: verseLoadingSelector(store.state, type), 
+      loadingStatus: verseLoadingSelector(store.state, type),
       onLoadMore: () {
         int totalPages = totalPagesSelector(store.state, type);
-       // int pageCount = verseCountSelector(store.state,type);
-
-        if(verseCountSelector(store.state,type) < totalPages){
-          if(type == VerseDisplayType.favorite){
-               store.dispatch(GetMoreCurrentFavAction(verseCountSelector(store.state,type),
-               action: null, categoryID: categoryId));
-          }else{
-              store.dispatch(GetMoreCurrentVersesAction(verseCountSelector(store.state,type),
-               action: null, categoryID: categoryId));
+       
+        // int pageCount = verseCountSelector(store.state,type);
+        if (verseCountSelector(store.state, type) < totalPages) {
+          if (type == VerseDisplayType.favorite) {
+            store.dispatch(GetMoreCurrentFavAction(
+                verseCountSelector(store.state, type),
+                action: null,
+                categoryID: categoryId));
+          } else {
+            store.dispatch(GetMoreCurrentVersesAction(
+                verseCountSelector(store.state, type),
+                action: null,
+                categoryID: categoryId));
           }
-
         }
       },
       onVerseClicked: (verse) {
         store.dispatch(CurrentViewedAction(verse));
       },
       onSortByDateDesc: () {
-        //  store.dispatch(new GetCurrentVersesAction(
-        //     categoryID, VerseListAction.sortByDateDesc));
+        sortActionClick(store, categoryId, VerseListAction.sortByDateDesc);
       },
       onSortByDateAsc: () {
-        //   store.dispatch(new GetCurrentVersesAction(
-        //     categoryID, VerseListAction.sortByDateAsc));
+        sortActionClick(store, categoryId, VerseListAction.sortByDateAsc);
       },
       onSortByBookAsc: () {
-        // store.dispatch(new GetCurrentVersesAction(
-        //     categoryID, VerseListAction.sortByBookAsc));
+        sortActionClick(store, categoryId, VerseListAction.sortByBookAsc);
       },
       onSortByBookDesc: () {
-        // store.dispatch(new GetCurrentVersesAction(
-        //    categoryID, VerseListAction.sortByBookDesc));
+        sortActionClick(store, categoryId, VerseListAction.sortByBookDesc);
       },
       onShareClicked: (verse) {
         print('verse has been clicked and the id is $verse.id');
@@ -91,5 +88,25 @@ class VerseViewModel {
         store.dispatch(new ToggleVerseFavoriteAction(verse));
       },
     );
+
+    
   }
+
+static sortActionClick(store, categoryId, action) {
+    if (categoryId != null) {
+      store.dispatch(GetCurrentFavAction(
+          verseCountSelector(store.state, VerseDisplayType.favorite),
+          action: action,
+          categoryID: categoryId));
+      store.dispatch(GetCurrentVersesAction(
+          verseCountSelector(store.state, VerseDisplayType.category),
+          action: action,
+          categoryID: categoryId));
+    } else {
+      store.dispatch(new GetCurrentVersesAction(
+          verseCountSelector(store.state, VerseDisplayType.category),
+          action: action));
+    }
+  }
+  
 }
