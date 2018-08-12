@@ -10,11 +10,12 @@ class VerseState {
   List<VerseCategory> verseCategories;
   List<Verse> currentVerses;
   List<Verse> currentFavorite;
+  Verse currentViewed;
+ 
   int verseCount;
   int favCount;
   int currentVersePages;
   int currentFavoritePages;
-  Verse currentViewed;
   VerseSortType sortType;
 
   VerseState(

@@ -61,7 +61,7 @@ void main() {
         id: 7,
         content: 'jesus wept 7',
         isFaved: false,
-        dateAdded: '11/10/2018',
+        dateAdded: DateTime.now(),
         quotation: 'john 11:35',
         categoryId: 1,
       ),
@@ -69,7 +69,7 @@ void main() {
         id: 8,
         content: 'jesus wept 8',
         isFaved: false,
-        dateAdded: '11/10/2018',
+        dateAdded: DateTime.now(),
         quotation: 'john 11:35',
         categoryId: 3,
       )
@@ -93,7 +93,7 @@ void main() {
         id: 8,
         content: 'jesus wept 8',
         isFaved: false,
-        dateAdded: '11/10/2018',
+        dateAdded: DateTime.now(),
         quotation: 'john 11:35',
         categoryId: 2,
         isDefault: false
@@ -111,36 +111,6 @@ void main() {
     expect(actions[1].toggledVerse.isFaved, true);
     
   });
-
-
-//TODO: REMOVE THIS LATER .. ITS NOT PART OF THE MAIN CODE
-  // test('Should be equal', (){
-
-  //     Verse verse = Verse(
-  //       id: 8,
-  //       content: 'jesus wept 8',
-  //       isFaved: false,
-  //       dateAdded: '11/10/2018',
-  //       quotation: 'john 11:35',
-  //       categoryId: 2,
-  //       isDefault: false
-  //     );
-
-  //     Verse verse1 = verse.copyWith(isFaved: !verse.isFaved);
-  //     Verse verse2 = verse.copyWith(isFaved: !verse.isFaved);
-
-  //     expect(verse.isDefault, Verse(
-  //       id: 8,
-  //       content: 'jesus wept 8',
-  //       isFaved: false,
-  //       dateAdded: '11/10/2018',
-  //       quotation: 'john 11:35',
-  //       categoryId: 2,
-  //       isDefault: false
-  //     ).isDefault);
-  //     expect(verse1, verse2);
-
-  // });
 }
 
 class MockVerseRepository extends Mock implements VerseRepository {}

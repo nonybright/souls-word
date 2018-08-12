@@ -1,11 +1,12 @@
 import 'package:flutter_emergency_app_one/services/local/verse_local.dart';
+import 'package:flutter_emergency_app_one/utils/date_formater.dart';
 
 class Verse {
   int id;
   String content;
   String quotation;
   bool isFaved;
-  String dateAdded;
+  DateTime dateAdded;
   int categoryId;
   bool isDefault;
 
@@ -24,7 +25,7 @@ class Verse {
     String content,
     String quotation,
     bool isFaved,
-    String dateAdded,
+    DateTime dateAdded,
     int categoryId,
     bool isDefault,
   }) {
@@ -44,7 +45,7 @@ class Verse {
     this.content = verse[VerseLocal.columnContent];
     this.quotation = verse[VerseLocal.columnQuotation];
     this.isFaved = (verse[VerseLocal.columnIsFaved] == 1) ? true : false;
-    this.dateAdded = verse[VerseLocal.columnDateAdded];
+    this.dateAdded = DateTime.parse(verse[VerseLocal.columnDateAdded]);
     this.categoryId = verse[VerseLocal.columnCategoryId];
     this.isDefault = (verse[VerseLocal.columnIsDefault] == 1) ? true : false;
   }
@@ -55,9 +56,31 @@ class Verse {
       VerseLocal.columnContent: this.content,
       VerseLocal.columnQuotation: this.quotation,
       VerseLocal.columnIsFaved: this.isFaved ? 1 : 0,
-      VerseLocal.columnDateAdded: this.dateAdded,
+      VerseLocal.columnDateAdded: dateToString(this.dateAdded),
       VerseLocal.columnCategoryId: this.categoryId,
-      VerseLocal.columnIsDefault: this.isDefault
+      VerseLocal.columnIsDefault: this.isDefault ? 1 : 0,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Verse &&
+      id == other.id &&
+      content == other.content &&
+      quotation == other.quotation &&
+      isFaved == other.isFaved &&
+      dateAdded == other.dateAdded &&
+      categoryId == other.categoryId &&
+      isDefault == other.isDefault;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      content.hashCode ^
+      quotation.hashCode ^
+      isFaved.hashCode ^
+      dateAdded.hashCode ^
+      categoryId.hashCode ^
+      isDefault.hashCode;
 }

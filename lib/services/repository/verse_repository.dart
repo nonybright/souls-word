@@ -1,4 +1,3 @@
-//TODO: NEXT
 import 'dart:async';
 
 import 'package:flutter_emergency_app_one/models/verse.dart';
@@ -11,7 +10,7 @@ class VerseRepository {
         id: 5,
         content: 'jesus wept',
         isFaved: false,
-        dateAdded: '11/10/2018',
+        dateAdded: DateTime.now(),
         quotation: 'john 11:35',
         categoryId: 2,
       ),
@@ -19,7 +18,7 @@ class VerseRepository {
         id: 6,
         content: 'jesus wept 6',
         isFaved: false,
-        dateAdded: '11/10/2018',
+        dateAdded: DateTime.now(),
         quotation: 'john 11:35',
         categoryId: 2,
       ),
@@ -27,7 +26,7 @@ class VerseRepository {
         id: 7,
         content: 'jesus wept 7',
         isFaved: false,
-        dateAdded: '11/10/2018',
+        dateAdded: DateTime.now(),
         quotation: 'john 11:35',
         categoryId: 1,
       ),
@@ -35,7 +34,7 @@ class VerseRepository {
         id: 8,
         content: 'jesus wept 8',
         isFaved: false,
-        dateAdded: '11/10/2018',
+        dateAdded: DateTime.now(),
         quotation: 'john 11:35',
         categoryId: 3,
       ),
@@ -43,7 +42,7 @@ class VerseRepository {
         id: 9,
         content: 'jesus wept 9',
         isFaved: false,
-        dateAdded: '11/10/2018',
+        dateAdded: DateTime.now(),
         quotation: 'john 11:35',
         categoryId: 1,
       ),

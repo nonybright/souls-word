@@ -22,6 +22,7 @@ dependencies:
   mockito: "2.2.3"
   flutter_redux_dev_tools: "0.3.0"
   image: "2.0.4"
+  intl: "0.15.7"
 
 dev_dependencies:
   flutter_test:
