@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
+      floatingActionButton: viewModel.floatingActionButton,
     );
   }
 

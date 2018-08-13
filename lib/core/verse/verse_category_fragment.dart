@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_emergency_app_one/core/verse/verse_add_page.dart';
+import 'package:flutter_emergency_app_one/core/verse/verse_category_add_page.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_emergency_app_one/core/verse/verse_category_view_model.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_emergency_app_one/core/verse/verse_view_page.dart';
 import 'package:flutter_emergency_app_one/models/verse_category.dart';
 import 'package:flutter_emergency_app_one/redux/app/app_state.dart';
 import 'package:flutter_emergency_app_one/redux/app/appbaraction/app_bar_action_actions.dart';
+import 'package:flutter_emergency_app_one/redux/app/floating_action_button/floating_action_button_action.dart';
 import 'package:flutter_emergency_app_one/redux/verse/verse_actions.dart';
 import 'package:flutter_emergency_app_one/widgets/badge.dart';
 import 'package:flutter_emergency_app_one/widgets/responsive_builder.dart';
@@ -28,7 +31,7 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
         onPressed: () {
           //dispatch get All;
           store.dispatch(new GetCurrentVersesAction(
-              verseCountSelector(store.state,VerseDisplayType.category),
+              verseCountSelector(store.state, VerseDisplayType.category),
               null));
           Navigator.push(
             context,
@@ -44,7 +47,7 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
         onPressed: () {
           //dispatch get all with favorite as part of action
           store.dispatch(new GetCurrentFavAction(
-              verseCountSelector(store.state,VerseDisplayType.favorite),
+              verseCountSelector(store.state, VerseDisplayType.favorite),
               null));
           Navigator.push(
             context,
@@ -63,12 +66,54 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
     return StoreConnector<AppState, VerseCategoryViewModel>(
       onInit: (store) {
         store.dispatch(ChangeActionWidget(_getVerseCategoryAction(store)));
+        store.dispatch(ChangeFloatingActionButton(FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            _showAddDialog(context);
+          },
+        )));
       },
-      onDispose: (store) => store.dispatch(ChangeActionWidget([])),
+      onDispose: (store) {
+        //store.dispatch(ChangeActionWidget([])); // change this ito clearAction...
+        store.dispatch(ClearActionWidget()); // change this ito clearAction...
+        store.dispatch(ClearFloatingActionButton());
+      },
       converter: (store) => VerseCategoryViewModel.fromStore(store),
       builder: (_, viewModel) => VerseCategoryContent(viewModel),
     );
   }
+}
+
+void _showAddDialog(context) {
+  showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return new SimpleDialog(
+          title: const Text('Select assignment'),
+          children: <Widget>[
+            new SimpleDialogOption(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new VerseAddPage()),
+                );
+              },
+              child: const Text('Add Verse'),
+            ),
+            new SimpleDialogOption(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new VerseCategoryAddPage()),
+                );
+              },
+              child: const Text('Add Category'),
+            ),
+          ],
+        );
+      });
 }
 
 //TODO: make this presentation independent of viewmodel

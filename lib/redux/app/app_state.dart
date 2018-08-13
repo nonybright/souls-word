@@ -6,6 +6,7 @@ import 'package:flutter_emergency_app_one/redux/verse/verse_state.dart';
 
 class AppState {
   List<Widget> appbarActions;
+  FloatingActionButton floatingActionButton;
   bool isUpdated;
   FactState factState;
   ImageState imageState;
@@ -14,6 +15,7 @@ class AppState {
 
   AppState({
     this.appbarActions,
+    this.floatingActionButton,
     this.isUpdated,
     this.factState,
     this.imageState,
@@ -25,6 +27,7 @@ class AppState {
     // FIXME: Change all the sub states from null to <substate.initial() when created
     return AppState(
       appbarActions: [],
+      floatingActionButton: null,
       isUpdated: false,
       factState: null,
       imageState: null,
@@ -35,6 +38,7 @@ class AppState {
 
   AppState copyWith({
     List<Widget> appbarActions,
+    FloatingActionButton floatingActionButton,
     bool isUpdated,
     FactState factState,
     ImageState imageState,
@@ -43,6 +47,7 @@ class AppState {
   }) {
     return AppState(
       appbarActions: appbarActions ?? this.appbarActions,
+      floatingActionButton: floatingActionButton ?? this.floatingActionButton,
       isUpdated: isUpdated ?? this.isUpdated,
       factState: factState ?? this.factState,
       imageState: imageState ?? this.imageState,
