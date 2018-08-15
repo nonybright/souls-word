@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_emergency_app_one/core/verse/verse_list_fragment.dart';
 import 'package:flutter_emergency_app_one/core/verse/verse_view_page.dart';
 import 'package:flutter_emergency_app_one/models/verse.dart';
@@ -20,13 +22,6 @@ class VerseCategorySuccessfulAction {
   final List<VerseCategory> verseCategories;
   VerseCategorySuccessfulAction(this.verseCategories);
 }
-
-///gets the verses to be displayed on the list from local store
-// class GetCurrentVersesAction {
-//   final int categoryID;
-//   final VerseListAction action;
-//   GetCurrentVersesAction(this.categoryID, this.action);
-// }
 
 //TODO: Refactor all these to extend
 class GetCurrentVersesAction {
@@ -123,4 +118,15 @@ class ToggleVerseFavoriteAction {
 class ToggleVerseFavoriteSuccessFulAction {
   Verse toggledVerse;
   ToggleVerseFavoriteSuccessFulAction(this.toggledVerse);
+}
+
+//TODO: What happens when a user pops while a save is going on ... ask the user tho.
+class AddVerseCategory{
+  VerseCategory categoryToAdd;
+  Completer completer;
+  AddVerseCategory(this.categoryToAdd, this.completer);
+}
+
+class VerseCategoryAddSuccessfulAction{
+    VerseCategoryAddSuccessfulAction();
 }

@@ -9,6 +9,7 @@ class CategoryLocal {
   static final String columnId = 'id';
   static final String columnName = 'name';
   static final String columnDescription = 'description';
+  static final String columnDateAdded = 'dateAdded';
   static final String columnIsDefault = 'isDefault';
 
   DatabaseHelper helper;
@@ -25,5 +26,18 @@ class CategoryLocal {
           .toList();
     }
     return null;
+  }
+
+  Future<Null> addCategory(VerseCategory categoryToAdd) async{
+
+      Database db = await helper.db;
+      await db.insert(tableCategory, categoryToAdd.toMap());
+  }
+
+  Future<Null> updateCategory(VerseCategory categoryToUpdate) async{
+
+      Database db = await helper.db;
+      await db.update(tableCategory, categoryToUpdate.toMap(), where: '$columnId = ?', whereArgs: [categoryToUpdate.id]);
+
   }
 }

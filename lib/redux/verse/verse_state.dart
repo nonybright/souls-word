@@ -4,6 +4,7 @@ import 'package:flutter_emergency_app_one/models/verse.dart';
 import 'package:flutter_emergency_app_one/models/verse_category.dart';
 
 class VerseState {
+  ClickStatus saveAndEditStatus;
   LoadingStatus verseLoadingStatus;
   LoadingStatus favLoadingStatus;
   List<Verse> latestVerses;
@@ -21,6 +22,7 @@ class VerseState {
   VerseState(
      
       { 
+      this.saveAndEditStatus,
       this.verseLoadingStatus,
       this.favLoadingStatus,
       this.latestVerses,
@@ -36,6 +38,7 @@ class VerseState {
 
   factory VerseState.initial() {
     return VerseState(
+        saveAndEditStatus: ClickStatus.notLoading,
         verseLoadingStatus: LoadingStatus.loading,
         favLoadingStatus: LoadingStatus.loading,
         latestVerses: <Verse>[],
@@ -51,6 +54,7 @@ class VerseState {
   }
 
   VerseState copyWith({
+    ClickStatus saveAndEditStatus,
     LoadingStatus verseLoadingStatus,
     LoadingStatus favLoadingStatus,
     List<Verse> latestVerses,
@@ -65,6 +69,7 @@ class VerseState {
     VerseSortType sortType,
   }) {
     return VerseState(
+        saveAndEditStatus:  saveAndEditStatus ?? this.saveAndEditStatus,
         verseLoadingStatus: verseLoadingStatus ?? this.verseLoadingStatus,
         favLoadingStatus: favLoadingStatus ?? this.favLoadingStatus,
         latestVerses: latestVerses ?? this.latestVerses,

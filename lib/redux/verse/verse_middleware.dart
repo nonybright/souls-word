@@ -28,11 +28,28 @@ class VerseMiddleWare extends MiddlewareClass<AppState> {
       await _getLatestVerses(next);
     } else if (action is ToggleVerseFavoriteAction) {
       await _toggleVerseFavorite(store, action, next);
-    } else if (action is GetCurrentVersesAction ||
+    }else if( action is AddVerseCategory){
+      await  _addVerseCategory(action, next);
+    }else if (action is GetCurrentVersesAction ||
         action is GetCurrentFavAction ||
         action is GetMoreCurrentVersesAction ||
         action is GetMoreCurrentFavAction) {
       _getCurrentVerses(store, action, next);
+    }
+  }
+
+  Future<Null> _addVerseCategory(AddVerseCategory action, NextDispatcher next) async {
+    try {
+      
+      if(action.categoryToAdd.id != null){
+        await categoryLocal.updateCategory(action.categoryToAdd);
+      }else{
+        await categoryLocal.addCategory(action.categoryToAdd);
+      }
+      next(VerseCategoryAddSuccessfulAction());
+      action.completer.complete();
+    } catch (e) {
+      action.completer.completeError(e);
     }
   }
 

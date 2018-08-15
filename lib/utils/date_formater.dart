@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 
 enum DateFormatPattern {general}
 
+
 String dateToString(DateTime date, [DateFormatPattern pattern = DateFormatPattern.general]){
 
   String formatPattern = '';

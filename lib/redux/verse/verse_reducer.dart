@@ -22,7 +22,17 @@ final verseReducer = combineReducers<VerseState>([
       _toggleVerseFav),
   TypedReducer<VerseState, SetCurrentFavoritePagesAction>(_setFavPageAction),
   TypedReducer<VerseState, SetCurrentVersePagesAction>(_setVersePageAction),
+  TypedReducer<VerseState, AddVerseCategory>(_setAddVerseCatAction),
+  TypedReducer<VerseState, VerseCategorySuccessfulAction>(_setAddVerseSuccesFulAction),
 ]);
+VerseState _setAddVerseCatAction(
+    VerseState state, AddVerseCategory action) {
+   return state.copyWith(saveAndEditStatus: ClickStatus.loading);
+}
+VerseState _setAddVerseSuccesFulAction(
+    VerseState state, VerseCategorySuccessfulAction action) {
+   return state.copyWith(saveAndEditStatus: ClickStatus.notLoading);
+}
 
 VerseState _initMoreVerses(
     VerseState state, GetMoreCurrentVersesAction action) {

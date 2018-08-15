@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_emergency_app_one/models/verse.dart';
 import 'package:flutter_emergency_app_one/models/verse_category.dart';
 import 'package:flutter_emergency_app_one/redux/app/app_state.dart';
@@ -50,6 +52,33 @@ void main() {
         );
     await verseMiddleWare.call(store, GetVerseCategoryAction(), next);
     verify(categoryLocal.getCategories());
+
+  });
+
+  test('Saves category when saveCategoryaction is dispatched and calls successful when done', () async {
+
+        when(categoryLocal.addCategory(typed(any))).thenAnswer((_) => null);
+        when(categoryLocal.updateCategory(typed(any))).thenAnswer((_) => null);
+
+        VerseCategory catWithId = VerseCategory(id: 1, name: 'cat', dateAdded: DateTime.now(), isDefault: false, description: 'description');
+        VerseCategory catWithOutId = VerseCategory(name: 'cat2', dateAdded: DateTime.now(), isDefault: false, description: 'description');
+
+        Store<AppState> store = Store(appReducer,
+        initialState: AppState.initial(),
+        );
+
+        final Completer<Null> completer = new Completer<Null>();
+        await verseMiddleWare.call(store, AddVerseCategory(catWithId, completer), next);
+        verify(categoryLocal.updateCategory(typed(any)));
+        expect(actions[1], const isInstanceOf<VerseCategoryAddSuccessfulAction>());
+
+        actions.clear();
+
+         final Completer<Null> completer2 = new Completer<Null>();
+        await verseMiddleWare.call(store, AddVerseCategory(catWithOutId, completer2), next);
+        verify(categoryLocal.addCategory(typed(any)));
+        expect(actions[1], const isInstanceOf<VerseCategoryAddSuccessfulAction>());
+
 
   });
 
@@ -116,76 +145,3 @@ void main() {
 class MockVerseRepository extends Mock implements VerseRepository {}
 class MockVerseLocal extends Mock implements VerseLocal {}
 class MockCategoryLocal extends Mock implements CategoryLocal {}
-
-// import 'package:flutter_emergency_app_one/redux/app/app_state.dart';
-// import 'package:flutter_emergency_app_one/redux/verse/verse_actions.dart';
-// import 'package:flutter_emergency_app_one/redux/verse/verse_middleware.dart';
-// import 'package:flutter_emergency_app_one/services/local/category_local.dart';
-// import 'package:flutter_emergency_app_one/services/local/verse_local.dart';
-// import 'package:flutter_emergency_app_one/services/repository/verse_repository.dart';
-// import 'package:flutter_emergency_app_one/models/verse_category.dart';
-// import 'package:flutter_emergency_app_one/redux/app/app_reducer.dart';
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:mockito/mockito.dart';
-// import 'package:redux/redux.dart';
-
-// void main() {
-//   MockVerseRepository verseRepository =  MockVerseRepository();
-//   MockVerseLocal verseLocal = MockVerseLocal();
-//   MockCategoryLocal categoryLocal = MockCategoryLocal();
-//   List<dynamic> actions = [];
-//   setUp(() {
-//     when(categoryLocal.getCategories()).thenAnswer((inv) => [
-//       VerseCategory(id: 1, name: 'Church', description: 'church', isDefault: true),
-//       VerseCategory(id: 2, name: 'Command', description: 'church', isDefault: true),
-//       VerseCategory(id: 1, name: 'Last', description: 'church', isDefault: true),
-//     ]);
-//   });
-
-//   tearDown((){
-//         actions.clear();
-//   });
-
-//   test('repo', () async {
-//     List<Middleware<AppState>> middleWares =
-//         createVerseMiddleWare(verseRepository, verseLocal, categoryLocal);
-
-//      Store<AppState> store = Store(
-//         appReducer,
-//         initialState: AppState.initial(),
-//         middleware: middleWares
-//     );
-
-//       await middleWares[1].call(store, GetVerseCategoryAction() , (action){
-
-//             actions.add(action);
-//             print('next called');
-//             if(action is VerseCategorySuccessfulAction){
-//               action.verseCategories;
-//             }
-//       });
-
-//     //store.dispatch(GetVerseCategoryAction());
-
-//     verify(categoryLocal.getCategories()).called(2);
-
-//     // expectLater([
-//     //   VerseCategory(id: 1, name: 'Church', description: 'church', isDefault: true),
-//     //   VerseCategory(id: 2, name: 'Command', description: 'church', isDefault: true),
-//     //   VerseCategory(id: 1, name: 'Last', description: 'church', isDefault: true),
-//     // ], store.state.verseState.verseCategories);
-
-//     //  expectLater(store.state.verseState.verseCategories, [
-//     //   VerseCategory(id: 1, name: 'Church', description: 'church', isDefault: true),
-//     //   VerseCategory(id: 2, name: 'Command', description: 'church', isDefault: true),
-//     //   VerseCategory(id: 1, name: 'Last', description: 'church', isDefault: true),
-//     // ]);
-
-//   });
-// }
-
-// class MockVerseRepository extends Mock implements VerseRepository {}
-
-// class MockVerseLocal extends Mock implements VerseLocal {}
-
-// class MockCategoryLocal extends Mock implements CategoryLocal {}
