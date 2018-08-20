@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_emergency_app_one/utils/device_detail.dart';
 
-// class ResponsiveBuilder extends LayoutBuilder{
-
-//   final Widget phone;
-//   final Widget tablet;
-//   final Key key;
-//   final LayoutWidgetBuilder builder;
-
-//   ResponsiveBuilder({@required this.phone, this.tablet, this.builder, this.key}):super(key:key, builder:builder);
-// }
-
 class ResponsiveBuilder extends StatefulWidget {
   final Widget phone;
   final Widget tablet;
@@ -32,7 +22,6 @@ class _ResponsiveBuilderState extends State<ResponsiveBuilder> {
       if (detail.isPhone()) {
         return _getPhone();
       } else if (detail.isTablet()) {
-        print("-----------------------IS TABLET");
         return _getTablet();
       } else {
         return _getTablet();

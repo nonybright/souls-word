@@ -130,3 +130,13 @@ class AddVerseCategory{
 class VerseCategoryAddSuccessfulAction{
     VerseCategoryAddSuccessfulAction();
 }
+
+class AddVerseAction{
+  Verse verseToAdd;
+  Completer completer;
+  AddVerseAction(this.verseToAdd, this.completer);
+}
+
+class AddVerseSuccessfulAction{
+  AddVerseSuccessfulAction();
+}

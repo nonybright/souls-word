@@ -30,6 +30,8 @@ class VerseMiddleWare extends MiddlewareClass<AppState> {
       await _toggleVerseFavorite(store, action, next);
     }else if( action is AddVerseCategory){
       await  _addVerseCategory(action, next);
+    }else if (action is AddVerseAction){
+      await _addVerseAction(action, next);
     }else if (action is GetCurrentVersesAction ||
         action is GetCurrentFavAction ||
         action is GetMoreCurrentVersesAction ||
@@ -37,6 +39,20 @@ class VerseMiddleWare extends MiddlewareClass<AppState> {
       _getCurrentVerses(store, action, next);
     }
   }
+
+  Future<Null> _addVerseAction(AddVerseAction action, NextDispatcher next) async{
+
+      try{
+        if(action.verseToAdd.id != null){
+            await verseLocal.updateVerse(action.verseToAdd);
+        }else{
+            await verseLocal.addVerse(action.verseToAdd);
+        }
+        next(AddVerseSuccessfulAction());
+      }catch(e){
+          action.completer.completeError(e);
+      } 
+  } 
 
   Future<Null> _addVerseCategory(AddVerseCategory action, NextDispatcher next) async {
     try {

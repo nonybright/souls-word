@@ -25,7 +25,7 @@ class VerseLocal {
         where: '$columnId = ?', whereArgs: [verse.id]);
   }
 
-  Future<Verse> insert(Verse verse) async {
+  Future<Verse> addVerse(Verse verse) async {
     Database database = await dbHelper.db;
     await database.insert(tableVerse, verse.toMap());
     //make id autoincrement and use the code below instaead f above

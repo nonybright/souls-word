@@ -8,7 +8,13 @@ class VerseCategory {
   DateTime dateAdded;
   bool isDefault;
 
-  VerseCategory({this.id, this.name, this.description, this.dateAdded, this.isDefault});
+  VerseCategory({
+    this.id,
+    this.name,
+    this.description,
+    this.dateAdded,
+    this.isDefault:false,
+  });
 
   VerseCategory.fromMap(Map category) {
     this.id = category[CategoryLocal.columnId];

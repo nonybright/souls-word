@@ -14,10 +14,10 @@ class Verse {
     this.id,
     this.content,
     this.quotation,
-    this.isFaved,
+    this.isFaved:false,
     this.dateAdded,
     this.categoryId,
-    this.isDefault,
+    this.isDefault:false,
   });
 
   Verse copyWith({
@@ -53,12 +53,12 @@ class Verse {
   Map<String, dynamic> toMap() {
     return {
       VerseLocal.columnId: this.id,
+      VerseLocal.columnIsDefault: isDefault? 1 : 0,
       VerseLocal.columnContent: this.content,
       VerseLocal.columnQuotation: this.quotation,
-      VerseLocal.columnIsFaved: this.isFaved ? 1 : 0,
-      VerseLocal.columnDateAdded: dateToString(this.dateAdded),
+      VerseLocal.columnIsFaved:this.isFaved ? 1 : 0,
+      VerseLocal.columnDateAdded: (this.dateAdded != null)?dateToString(this.dateAdded):null,
       VerseLocal.columnCategoryId: this.categoryId,
-      VerseLocal.columnIsDefault: this.isDefault ? 1 : 0,
     };
   }
 

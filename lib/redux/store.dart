@@ -1,3 +1,5 @@
+import 'package:flutter_emergency_app_one/redux/app/biblebook/bible_book_middleware.dart';
+import 'package:flutter_emergency_app_one/services/local/bible_book_local.dart';
 import 'package:flutter_emergency_app_one/services/local/category_local.dart';
 import 'package:flutter_emergency_app_one/services/local/database_helper.dart';
 import 'package:flutter_emergency_app_one/services/local/verse_local.dart';
@@ -15,11 +17,12 @@ Store<AppState> createStore() {
 
   VerseLocal verseLocal = VerseLocal(dbHelper);
   CategoryLocal categoryLocal = CategoryLocal(dbHelper);
+  BibleBookLocal bibleBookLocal = BibleBookLocal(dbHelper);
 
   return Store(
     appReducer,
     initialState: AppState.initial(),
-    middleware: [VerseMiddleWare(verseRepository, verseLocal, categoryLocal)],
+    middleware: [VerseMiddleWare(verseRepository, verseLocal, categoryLocal), BibleBookMiddleWare(bibleBookLocal)],
   );
 }
 

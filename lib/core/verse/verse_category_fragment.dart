@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_emergency_app_one/core/verse/verse_add_page.dart';
 import 'package:flutter_emergency_app_one/core/verse/verse_category_add_page.dart';
+import 'package:flutter_emergency_app_one/redux/app/biblebook/bible_book_action.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_emergency_app_one/core/verse/verse_category_view_model.dart';
@@ -65,6 +66,7 @@ class _VerseCategoryFragmentState extends State<VerseCategoryFragment> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, VerseCategoryViewModel>(
       onInit: (store) {
+        store.dispatch(GetBibleBooksAction());
         store.dispatch(ChangeActionWidget(_getVerseCategoryAction(store)));
         store.dispatch(ChangeFloatingActionButton(FloatingActionButton(
           child: Icon(Icons.add),
