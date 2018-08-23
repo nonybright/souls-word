@@ -9,6 +9,7 @@ import 'package:sqflite/sqflite.dart';
 class VerseLocal {
   static final String tableVerse = 'Verse';
   static final String columnId = 'id';
+  static final String columnGlobalId = 'globalId';
   static final String columnContent = 'content';
   static final String columnQuotation = 'quotation';
   static final String columnIsFaved = 'isFaved';

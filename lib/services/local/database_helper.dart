@@ -47,7 +47,7 @@ class DatabaseHelper {
 
       File file = await _writeToFile(data, path);
       Database db = await openDatabase(file.path,
-          version: 1,
+          version: 2,
           onCreate: (database, version) => _setDbCreated(),
           onOpen: (database) {
             print('the database is open');

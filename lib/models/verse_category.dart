@@ -3,34 +3,38 @@ import 'package:flutter_emergency_app_one/utils/date_formater.dart';
 
 class VerseCategory {
   int id;
+  String globalId;
   String name;
   String description;
   DateTime dateAdded;
-  bool isDefault;
 
   VerseCategory({
     this.id,
+    this.globalId,
     this.name,
     this.description,
     this.dateAdded,
-    this.isDefault:false,
   });
 
   VerseCategory.fromMap(Map category) {
     this.id = category[CategoryLocal.columnId];
+    this.globalId = category[CategoryLocal.columnGlobalId];
     this.name = category[CategoryLocal.columnName];
     this.description = category[CategoryLocal.columnDescription];
     this.dateAdded = DateTime.parse(category[CategoryLocal.columnDateAdded]);
-    this.isDefault = category[CategoryLocal.columnIsDefault] == 1;
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    Map<String, dynamic> map = {
       CategoryLocal.columnId: this.id,
+      CategoryLocal.columnGlobalId: this.globalId,
       CategoryLocal.columnName: this.name,
       CategoryLocal.columnDescription: this.description,
-      CategoryLocal.columnDateAdded: dateToString(this.dateAdded),
-      CategoryLocal.columnIsDefault: this.isDefault ? 1 : 0,
-    };
+    }; 
+
+    if(this.dateAdded != null){
+      map[CategoryLocal.columnDateAdded] = dateToString(this.dateAdded);
+    }
+    return map;
   }
 }

@@ -7,10 +7,10 @@ import 'package:sqflite/sqflite.dart';
 class CategoryLocal {
   static final String tableCategory = 'VerseCategory';
   static final String columnId = 'id';
+  static final String columnGlobalId= 'globalId';
   static final String columnName = 'name';
   static final String columnDescription = 'description';
   static final String columnDateAdded = 'dateAdded';
-  static final String columnIsDefault = 'isDefault';
 
   DatabaseHelper helper;
 

@@ -95,7 +95,7 @@ class CategoryAddContent extends StatelessWidget {
         addVerseCategory(editedCategory);
       } else {
         VerseCategory categoryToAdd = VerseCategory(
-            name: name, description: description, isDefault: false);
+            name: name, description: description);
         addVerseCategory(categoryToAdd);
       }
     }
